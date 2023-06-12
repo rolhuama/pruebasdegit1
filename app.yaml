@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ # El sufijo 0403 se refiere a clase 04 y laboratorio 03
+ name: spring
+ labels:
+ app: spring
+spec:
+ replicas: 4
+ selector:
+ matchLabels:
+ app: spring
+ template:
+ metadata:
+ labels:
+ app: spring
+ spec:
+ containers:
+ - name: spring
+ image: rolervengador/proyecto-entelgy:latest
+ ports:
+ - containerPort: 8080
+ env:
+ - name: HELLO
+ valueFrom:
+ configMapKeyRef:
+ name: spring
+ key: hello
+
